@@ -28,6 +28,9 @@ for link in chapter_links:
     img_set = soup.find_all('img', class_ = "my-3 mx-auto js-page")
     
     for x in img_set:
+        content = str(x['src'])
+        if(content[len(content)-1] == '0'):
+            continue
         image_links.append(str(x['src']))
    
     if (len(image_links) < 3):
