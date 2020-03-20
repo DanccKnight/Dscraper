@@ -14,11 +14,11 @@ soup = BeautifulSoup(r.text,'html.parser')
 links_set = soup.find_all('a', class_ = "text-gray-900 dark:text-white text-lg font-semibold mb-1")
 
 chapter_links = []
+chapter_text = []
 
 for link in links_set:
     chapter_links.append(str(link['href']))
-
-var = len(chapter_links) + 1
+    chapter_text.append(link.text)
 
 for link in chapter_links:
     image_links = []
@@ -35,11 +35,13 @@ for link in chapter_links:
    
     if (len(image_links) < 3):
         continue
-    print("Number of image links fetched:" + str(len(image_links)))
+    print("Chapter Name:- " + chapter_text[chapter_links.index(link)])
     print("Chapter link:- " + link)
-    print("Image links:-")
+    print("Number of image links fetched:" + str(len(image_links)))
+    print("Image links:-")   
+    
     for x in image_links:
         print(x)
     print("")
-#    print(str(var) + ":" + link)
-#    db.collection('My Hero Academia').document('Chapter ' + str(var)).
+
+#    db.collection('My Hero Academia').document()
