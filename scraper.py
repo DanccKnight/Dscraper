@@ -52,8 +52,8 @@ for link in chapter_links:
         }
     
         db.collection(u'My Hero Academia').document(chapter_text[index]).set(data)
-        print("Suspending for 3 seconds...")
-        time.sleep(3)
+        print("Suspending for 2 seconds...")
+        time.sleep(2)
     except:
         print("Something went wrong :(")
 
