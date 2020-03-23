@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import firebase_admin
 from firebase_admin import credentials, firestore
 import time
+import re
 
 cred = credentials.Certificate("/home/ansuman/scrape/serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
@@ -16,6 +17,7 @@ links_set = soup.find_all('a', class_ = "text-gray-900 dark:text-white text-lg f
 
 chapter_links = []
 chapter_text = []
+b = "''[]"
 
 for link in links_set:
     chapter_links.append(str(link['href']))
@@ -41,20 +43,29 @@ for link in chapter_links:
         print("Chapter Name:- " + chapter_text[index])
         print("Chapter link:- " + link)
         print("Number of image links fetched:" + str(len(image_links)))
-        print("Image links:-")   
+        #print("Image links:-")   
         
-        for x in image_links:
-            print(x)
-        print("")
+        #for x in image_links:
+        #    print(x)
+
+        #get the chapter number in float from the name
+        num = re.findall(r'[\d\.\d]+',chapter_text[index])
+        num = str(num)
+
+        #remove ''[] chars in  num
+        for char in b:
+            num = num.replace(char,"")
+        num = float(num)
         
         data = {
+            u'number': num,
             u'images': image_links   
         }
     
         db.collection(u'My Hero Academia').document(chapter_text[index]).set(data)
         print("Suspending for 2 seconds...")
         time.sleep(2)
-    except:
-        print("Something went wrong :(")
+    except Exception as ex:
+        print(ex)
 
 print("Uploaded all chapters successfully!")

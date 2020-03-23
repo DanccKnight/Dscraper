@@ -20,7 +20,8 @@ for doc in docs:
     #remove ''[] char in num
     for char in b:
         num = num.replace(char,"")
+    num = float(num)
     listnum.append(num)
 
-listnum.sort(key=float)
+listnum.sort()
 print(listnum)
