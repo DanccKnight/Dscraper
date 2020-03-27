@@ -1,3 +1,5 @@
+#This script checks for a new chapter of MHA. If present, it gets and pushes data to the DB.
+
 import re
 import requests
 from bs4 import BeautifulSoup
@@ -33,8 +35,9 @@ l = len(listnum)
 last_chapter = listnum[l-1]
 new_chapter = last_chapter + 1
 #print(last_chapter)
+
+#get the actual link by appending chapter number
 web_url = web_url + str(int(last_chapter + 1))
-#print(baseurl)
 
 r = requests.get(web_url)
 soup = BeautifulSoup(r.text,'html.parser')
@@ -53,7 +56,6 @@ while var:
     else:
         #print(new_chapter)
         #print('Boku no Hero Academia Chapter ' + str(new_chapter))
-        #TODO - notify the app somehow
         data = {
             u'number': new_chapter,
             u'images': img_links
