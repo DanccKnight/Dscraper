@@ -1,3 +1,5 @@
+#This script checks the documents present in the database
+
 import firebase_admin
 from firebase_admin import credentials, firestore
 import re
