@@ -61,7 +61,7 @@ while var:
             u'images': img_links
         }
         try:
-            db.collection(u'My Hero Academia').document('Boku no Hero Academia Chapter ' + str(int(new_chapter))).set(data)
+            db.collection('BNHA').document('Boku no Hero Academia Chapter ' + str(int(new_chapter))).set(data)
             var = False
             print("Database updated")
         except Exception as ex:

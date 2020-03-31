@@ -8,7 +8,7 @@ cred = credentials.Certificate("/home/ansuman/scrape/serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
-docs = db.collection("My Hero Academia").stream()
+docs = db.collection("BNHA").stream()
 listnum = []
 b = "''[]"
 

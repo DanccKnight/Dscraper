@@ -58,12 +58,12 @@ for link in chapter_links:
         num = float(num)
         
         data = {
-            u'number': num,
-            u'images': image_links   
+            'number': num,
+            'images': image_links   
         }
     
-        db.collection(u'My Hero Academia').document(chapter_text[index]).set(data)
-        print("Suspending for 2 seconds...")
+        db.collection('BNHA').document(chapter_text[index]).set(data)
+        print("Uploaded the chapter\nSuspending for 2 seconds...")
         time.sleep(2)
     except Exception as ex:
         print(ex)
