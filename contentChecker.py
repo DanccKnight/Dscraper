@@ -12,7 +12,7 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 web_url = "https://ww5.readmha.com/chapter/boku-no-hero-academia-chapter-"
 
-docs = db.collection("My Hero Academia").stream()
+docs = db.collection("BNHA").stream()
 listnum = []
 img_links = []
 b = "'[]"
