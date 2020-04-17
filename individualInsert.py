@@ -26,4 +26,4 @@ data = {
     'images': img_links
   }
 
-db.collection('BNHA').document("Boku no Hero Academia Chapter " + str(num)).set(data)
+#db.collection('BNHA').document("Boku no Hero Academia Chapter " + str(num)).set(data)
