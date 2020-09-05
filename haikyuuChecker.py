@@ -54,8 +54,7 @@ for link in soup.find_all('img', class_ = "my-3 mx-auto js-page"):
 var = True
 while var:
     if(len(img_links) < 4):
-        print("Chapter " + str(int(new_chapter)) + " not found\nSuspending for 20 minutes...")
-        time.sleep(1200)
+        print("Chapter " + str(int(new_chapter)) + " not found\n")
     else:
 
         data = {
