@@ -27,8 +27,7 @@ for doc in docs:
     listnum.append(num)
 
 listnum.sort()
-l = len(listnum)
-last_chapter = listnum[l-1]
+last_chapter = listnum[-1]
 new_chapter = last_chapter + 1
 
 web_url = web_url + str(int(last_chapter + 1))
@@ -38,9 +37,19 @@ soup = BeautifulSoup(r.text,'html.parser')
 
 for link in soup.find_all('img', class_ = "my-3 mx-auto js-page"):
     content = str(link['src'])
+    size = len(content)
+
+    #get rid of fraudulent links
     if(content[len(content)-1] == 0):
         continue
-    img_links.append(str(content))
+    else:
+        for k in range(size-6):
+            if content[k] == 'l' and content[k+1] == '=' and content[k+2] == 'h' and content[k+3] == 't' and content[k+4] == 't':
+                sliced_string = content[k+2:size]
+                img_links.append(sliced_string)
+                continue
+
+    img_links.append(content)
 
 var = True
 while var:

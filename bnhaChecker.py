@@ -31,38 +31,47 @@ for doc in docs:
     listnum.append(num)
 
 listnum.sort()
-l = len(listnum)
-last_chapter = listnum[l-1]
+last_chapter = listnum[-1]
 new_chapter = last_chapter + 1
 #print(last_chapter)
 
 #get the actual link by appending chapter number
-web_url = web_url + str(int(last_chapter + 1))
+web_url = web_url + str(int(new_chapter))
 
 r = requests.get(web_url)
 soup = BeautifulSoup(r.text,'html.parser')
 
 for link in soup.find_all('img', class_ = "my-3 mx-auto js-page"):
     content = str(link['src'])
-    if(content[len(content)-1] == 0):
-        continue
-    img_links.append(str(content))
+    size = len(content)
 
-var = True
-while var:
-    if(len(img_links) < 4):
-        print("Chapter not found\nSuspending for 20 minutes...")
-        time.sleep(1200)
+    #get rid of fraudulent links
+    if content[size-1] == 0:
+        continue
     else:
-        #print(new_chapter)
-        #print('Boku no Hero Academia Chapter ' + str(new_chapter))
-        data = {
-            'number': new_chapter,
-            'images': img_links
-        }
-        try:
-            db.collection('BNHA').document('Boku no Hero Academia Chapter ' + str(int(new_chapter))).set(data)
-            var = False
-            print("Chapter " + str(int(new_chapter)) + " has been added to the database")
-        except Exception as ex:
-            print(ex)
+        for k in range(size-6):
+            if content[k] == 'l' and content[k+1] == '=' and content[k+2] == 'h' and content[k+3] == 't' and content[k+4] == 't':
+                sliced_string = content[k+2:size]
+                img_links.append(sliced_string)
+                continue
+
+    img_links.append(content)
+
+#var = True
+#while var:
+if len(img_links) < 4:
+    print("Chapter " + str(int(new_chapter)) + " not found\nSuspending for 20 minutes...")
+    time.sleep(1200)
+else:
+    #print(new_chapter)
+    #print('Boku no Hero Academia Chapter ' + str(new_chapter))
+    data = {
+        'number': new_chapter,
+        'images': img_links
+    }
+    try:
+        db.collection('BNHA').document('Boku no Hero Academia Chapter ' + str(int(new_chapter))).set(data)
+        #var = False
+        print("Chapter " + str(int(new_chapter)) + " has been added to the database")
+    except Exception as ex:
+        print(ex)
